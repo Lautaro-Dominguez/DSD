@@ -1,85 +1,83 @@
 var screenInitial=$(window).outerWidth();
 var nameAssistant;
 var optionSelect;
-window.onbeforeunload = function() {/////esto sucede cuando se presiona el boton actualizar
-                   // $('html').animate( { scrollTop : 0 }, 0 );
+var documento
+var nombre
+var animo
+var estado
+var notas
+var bajas
+var desempeño
+var hablar
+var algomas
+window.onbeforeunload = function() {
 };
 
 $(window).resize(function() {
 	var screenW=$(window).outerWidth();
-   if(screenInitial!=screenW){
-   // location.reload();
-   }
+   if(screenInitial!=screenW){}
+
 });
 
 window.onload = function(){
             
-   /*mensaje uno*/
    setTimeout(function(){
       $('#assisWriteI').fadeOut(200);
       msjAsistente("varI");
-      },2000);
-   /*fin mensaje uno*/
-
-   /*mensaje dos*/
+   },2000);
    setTimeout(function(){
       asistenteEscribiendo();
       setTimeout(function(){
-         $('#assisWrite').fadeOut(200);
-         msjAsistente("varII");
-      },2000);    
+      $('#assisWrite').fadeOut(200);
+      msjAsistente("varII");
+      },2000);
    },2200);
-   /*fin mensaje dos*/
+
 
 }
 
+$(document).ready(function(){
 
-$(window).scroll(function(){
-
-	     // if($(window).scrollTop() >= 400){
-         //            $('#subir').fadeIn(700);
-         //            document.getElementById("subir").style.display="flex";
-         // }else{
-         // 	$('#subir').fadeOut(700);
-         // }
 
 });
 
-function sendName(){
-        var inputName=document.getElementById('readText');
-        var nameClient=document.getElementById("readText").value;
+$(window).scroll(function(){
 
-        if(nameClient==""){
-            alert("Debes ingresar tu nombre si deseas continuar");
-        }else{
-            var btnReadText=document.getElementById('btnReadText');
-            btnReadText.removeAttribute("onclick");
-            var DNI=nameClient
-            console.log(DNI)
-            inputName.value="";
-            inputName.setAttribute("readonly","readonly");
+});
 
-              var contAssistant=document.getElementById("contAssistant");
-              var hourClientRight=document.createElement("p");
-              var textClientRight=document.createElement("p");
+function sendDNI(){
+   var inputName=document.getElementById('readText');
+   var nameClient=document.getElementById("readText").value;
+   documento=nameClient
 
-              hourClientRight.setAttribute("class","hourClientRight");
-              hourClientRight.innerHTML=horaActual();
-              contAssistant.appendChild(hourClientRight);
-              textClientRight.setAttribute("class","textClientRight");
-              textClientRight.setAttribute("id","nombreCliente");
-              textClientRight.innerHTML=""+nameClient;
-              contAssistant.appendChild(textClientRight);
+   if(nameClient==""){
+      alert("Debes ingresar tu DNI si deseas continuar");
+   }else{
+      var btnReadText=document.getElementById('btnReadText');
+      btnReadText.removeAttribute("onclick");
+      inputName.value="";
+      inputName.setAttribute("readonly","readonly");
+
+      var contAssistant=document.getElementById("contAssistant");
+      var hourClientRight=document.createElement("p");
+      var textClientRight=document.createElement("p");
+
+      hourClientRight.setAttribute("class","hourClientRight");
+      hourClientRight.innerHTML=horaActual();
+      contAssistant.appendChild(hourClientRight);
+      textClientRight.setAttribute("class","textClientRight");
+      textClientRight.setAttribute("id","DNI");
+      textClientRight.innerHTML=""+nameClient;
+      contAssistant.appendChild(textClientRight);
+
+      setTimeout(function(){
+         asistenteEscribiendo();
+              },500);
               
-              /*mensaje tres*/
-            setTimeout(function(){
-               asistenteEscribiendo();
-               setTimeout(function(){
+              setTimeout(function(){
                   $('#assisWrite').fadeOut(200);
                   msjAsistente("varIII");
-               },2000);    
-            },2200);
-            
+              },2500);
               /*fin mensaje tres*/
 
               /*mensaje cuatro
@@ -90,266 +88,32 @@ function sendName(){
               setTimeout(function(){
                   $('#assisWrite').fadeOut(200);
                   msjAsistente("varXV");
-              },5000);*/
-              /*fin mensaje cuatro*/
+              },5000);
+              fin mensaje cuatro*/
 
               /*mensaje cinco
               setTimeout(function(){
                clienteTomaDecision();
-              },5500);*/
-              /*fin mensaje cinco*/
+              },5500);
+              fin mensaje cinco*/
+           
               
          }
 
 }
 
-function moreInfoYes(){
-            document.getElementById('optionI').style.pointerEvents="none";
-            document.getElementById('optionII').style.pointerEvents="none";
+function sendName(){
+   var inputName=document.getElementById('readText');
+   var nameClient=document.getElementById("readText").value;
+   nombre=nameClient
 
-            setTimeout(function(){
-               asistenteEscribiendo();
-            },500);
-
-            setTimeout(function(){
-               $('#assisWrite').fadeOut(200);
-               asistenteDiceEsto("¿Por qué medio te gustaría ser contactado?");
-            },2500);
-
-            setTimeout(function(){
-               $('#assisWrite').remove();
-               optionWhatOrMail();
-            },3000);
-
-}
-
-function moreInfoNo(){
-         document.getElementById('optionI').style.pointerEvents="none";
-         document.getElementById('optionII').style.pointerEvents="none";
-        
-          /*mensaje tres*/
-          setTimeout(function(){
-            asistenteEscribiendo();
-           },500);
-           
-           setTimeout(function(){
-               $('#assisWrite').fadeOut(200);
-               msjAsistente("varIV");
-           },2500);
-           /*fin mensaje tres*/
-
-         
-           asistenteDesconectado();
-
-}
-
-function whats(){
-         document.getElementById('optionII-I').style.pointerEvents="none";
-        document.getElementById('optionII-II').style.pointerEvents="none";
-
-        setTimeout(function(){
-         asistenteEscribiendo();
-        },500);
-
-        setTimeout(function(){
-               $('#assisWrite').fadeOut(200);
-               asistenteDiceEsto("Por favor, ingresa tu número de Whatsapp");
-
-               var barTextCliente=document.getElementById('barTextCliente');
-               var inputName=document.getElementById('readText');
-               var btnReadText=document.getElementById('btnReadText');
-
-               inputName.removeAttribute("readonly");
-               btnReadText.setAttribute("onclick","sendWhats()");
-                
-        },2500);
-
-        setTimeout(function(){
-         $('#assisWrite').remove();
-         $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-        },2700);
-
-}
-
-
-function mails(){
-         document.getElementById('optionII-I').style.pointerEvents="none";
-        document.getElementById('optionII-II').style.pointerEvents="none";
-        
-        setTimeout(function(){
-         asistenteEscribiendo();
-        },500);
-
-        setTimeout(function(){
-               $('#assisWrite').fadeOut(200);
-               asistenteDiceEsto("Por favor, ingresa tu E-mail");
-
-               var barTextCliente=document.getElementById('barTextCliente');
-               var inputName=document.getElementById('readText');
-               var btnReadText=document.getElementById('btnReadText');
-
-               inputName.removeAttribute("readonly");
-               btnReadText.setAttribute("onclick","sendMail()");
-                
-        },2500);
-
-        setTimeout(function(){
-         $('#assisWrite').remove();
-         $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-        },2700);
-
-}
-
-function sendWhats(){
-                var btnReadText=document.getElementById('btnReadText');
-                var inputWhat=document.getElementById('readText');
-                var inputWhatValue=inputWhat.value;
-
-                validarNumber(inputWhatValue);
-}
-
-function sendMail(){
-
-                var btnReadText=document.getElementById('btnReadText');
-                var inputMail=document.getElementById('readText');
-                var inputMailValue=inputMail.value;
-             
-               validarMail(inputMailValue);
-
-}
-
-function validarNumber(data){
-             var approved=0;
-             var datoWrite=data;
-             
-             for(var i=0;i<datoWrite.length;i++){
-                 
-                    if(datoWrite.charCodeAt(i)<48 || datoWrite.charCodeAt(i)>57){
-                        approved=0;
-                        break;
-                    }else{
-                        approved=1;
-                    }
-             }
-
-             if(approved==1){
-                 //escribio lo que sige y desactivo el atributo onclick del booton
-                 var btnReadText=document.getElementById('btnReadText');
-                  var inputWhat=document.getElementById('readText');
-                  var inputWhatValue=inputWhat.value;
-               
-                  btnReadText.removeAttribute("onclick");
-                  inputWhat.value="";
-                  inputWhat.setAttribute("readonly","readonly");
-
-                  var contAssistant=document.getElementById("contAssistant");
-                  var hourClientRight=document.createElement("p");
-                  var textClientRight=document.createElement("p");
-
-                  hourClientRight.setAttribute("class","hourClientRight");
-                  hourClientRight.innerHTML=horaActual();
-                  contAssistant.appendChild(hourClientRight);
-                  textClientRight.setAttribute("class","textClientRight");
-                  textClientRight.setAttribute("id","datosCliente");
-                  textClientRight.innerHTML=""+inputWhatValue;
-                  contAssistant.appendChild(textClientRight);
-                  
-                  $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-
-                  /*mensaje siete*/
-                  setTimeout(function(){
-                     asistenteEscribiendo();
-                  },500);
-                  
-                  setTimeout(function(){
-                        $("#assisWrite").fadeOut(200);
-                        msjAsistente("varVII");
-                        $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-
-                        var inputName=document.getElementById('readText');
-                        var btnReadText=document.getElementById('btnReadText');
-
-                        inputName.removeAttribute("readonly");
-                        btnReadText.setAttribute("onclick","rpstaDeInteres()");
-                  },2500);
-                  /*fin mensaje siete*/
-                  
-             }else{
-                alert("Ingrese su número sin letras ni símbolos");
-             }
-}
-
-
-function validarMail(data){
-             var approvedParcialI=0;
-             var approvedParcialII=0;
-             var datoWrite=data;
-             
-             for(var i=0;i<datoWrite.length;i++){
-                 
-                    if(datoWrite.charCodeAt(i)==64){
-                        approvedParcialI=1;
-                    }
-
-                    if(datoWrite.charCodeAt(i)==46){
-                        approvedParcialII=1;
-                    }
-             }
-
-             if(approvedParcialI==1 && approvedParcialII==1){
-                //escribio lo que sige y desactivo el atributo onclick del booton
-                var btnReadText=document.getElementById('btnReadText');
-                var inputMail=document.getElementById('readText');
-                var inputMailValue=inputMail.value;
-             
-                btnReadText.removeAttribute("onclick");
-                inputMail.value="";
-                inputMail.setAttribute("readonly","readonly");
-
-                var contAssistant=document.getElementById("contAssistant");
-                var hourClientRight=document.createElement("p");
-                var textClientRight=document.createElement("p");
-
-                hourClientRight.setAttribute("class","hourClientRight");
-                hourClientRight.innerHTML=horaActual();
-                contAssistant.appendChild(hourClientRight);
-                textClientRight.setAttribute("class","textClientRight");
-                textClientRight.setAttribute("id","datosCliente");
-                textClientRight.innerHTML=""+inputMailValue;
-                contAssistant.appendChild(textClientRight);
-                
-                $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-
-                /*mensaje siete*/
-                setTimeout(function(){
-                   asistenteEscribiendo();
-                },500);
-                
-                setTimeout(function(){
-                      $("#assisWrite").fadeOut(200);
-                      msjAsistente("varVII");
-                      $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-                        
-                        var inputName=document.getElementById('readText');
-                        var btnReadText=document.getElementById('btnReadText');
-
-                        inputName.removeAttribute("readonly");
-                        btnReadText.setAttribute("onclick","rpstaDeInteres()");
-                },2500);
-                /*fin mensaje siete*/
-             }else{
-                alert("Ingrese un E-mail válido");
-             }
-}
-
-function rpstaDeInteres(){
-         var btnReadText=document.getElementById('btnReadText');
-         var inputRpsta=document.getElementById('readText');
-         var inputRpstaValue=inputRpsta.value;
-
-         btnReadText.removeAttribute("onclick");
-         inputRpsta.value="";
-         inputRpsta.setAttribute("readonly","readonly");
+   if(nameClient==""){
+       alert("Debes ingresar tu nombre si deseas continuar");
+   }else{
+       var btnReadText=document.getElementById('btnReadText');
+       btnReadText.removeAttribute("onclick");
+       inputName.value="";
+       inputName.setAttribute("readonly","readonly");
 
          var contAssistant=document.getElementById("contAssistant");
          var hourClientRight=document.createElement("p");
@@ -359,42 +123,309 @@ function rpstaDeInteres(){
          hourClientRight.innerHTML=horaActual();
          contAssistant.appendChild(hourClientRight);
          textClientRight.setAttribute("class","textClientRight");
-         textClientRight.setAttribute("id","rsptDeCliente");
-         textClientRight.innerHTML=""+inputRpstaValue;
+         textClientRight.setAttribute("id","Nombreestudiante");
+         textClientRight.innerHTML=""+nameClient;
          contAssistant.appendChild(textClientRight);
          
-         $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-
-         /*mensaje ocho*/
+         /*mensaje cuatro*/
          setTimeout(function(){
-            asistenteEscribiendo();
+          asistenteEscribiendo();
          },500);
          
          setTimeout(function(){
-               $("#assisWrite").fadeOut(200);
-               msjAsistente("varVIII");
-               $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
+             $('#assisWrite').fadeOut(200);
+             msjAsistente("varIV");
          },2500);
-
-         setTimeout(function(){
-            clienteTomaTresDecision();
-         },3000);
-         /*fin mensaje ocho*/
+         /*fin mensaje cuatro*/
 }
+}
+function sendAnimo(){
+   var inputName=document.getElementById('readText');
+   var nameClient=document.getElementById("readText").value;
+   animo=nameClient
 
-function replaceName(data){
-         var contador=0;
-         var texto=data;
-         var name=document.getElementById("nombreCliente").innerHTML;
+   if(nameClient==""){
+       alert("Debes ingresar tu estado de animo si deseas continuar");
+   }else{
+       var btnReadText=document.getElementById('btnReadText');
+       btnReadText.removeAttribute("onclick");
+       inputName.value="";
+       inputName.setAttribute("readonly","readonly");
+
+         var contAssistant=document.getElementById("contAssistant");
+         var hourClientRight=document.createElement("p");
+         var textClientRight=document.createElement("p");
+
+         hourClientRight.setAttribute("class","hourClientRight");
+         hourClientRight.innerHTML=horaActual();
+         contAssistant.appendChild(hourClientRight);
+         textClientRight.setAttribute("class","textClientRight");
+         textClientRight.setAttribute("id","Animo");
+         textClientRight.innerHTML=""+nameClient;
+         contAssistant.appendChild(textClientRight);
          
-         var contWord= texto.split(" ");
-
-         for(i=0;i<contWord.length;i++){
-             texto=texto.replace("@name",name);
-         }
-
-         return texto;
+         /*mensaje cuatro*/
+         setTimeout(function(){
+          asistenteEscribiendo();
+         },500);
+         
+         setTimeout(function(){
+             $('#assisWrite').fadeOut(200);
+             msjAsistente("varV");
+         },2500);
+         /*fin mensaje cuatro*/
 }
+}
+function sendPresentismo(){
+   var inputName=document.getElementById('readText');
+   var nameClient=document.getElementById("readText").value;
+   estado=nameClient
+
+   if(nameClient==""){
+       alert("Debes ingresar tu respuesta si deseas continuar");
+   }else{
+       var btnReadText=document.getElementById('btnReadText');
+       btnReadText.removeAttribute("onclick");
+       inputName.value="";
+       inputName.setAttribute("readonly","readonly");
+
+         var contAssistant=document.getElementById("contAssistant");
+         var hourClientRight=document.createElement("p");
+         var textClientRight=document.createElement("p");
+
+         hourClientRight.setAttribute("class","hourClientRight");
+         hourClientRight.innerHTML=horaActual();
+         contAssistant.appendChild(hourClientRight);
+         textClientRight.setAttribute("class","textClientRight");
+         textClientRight.setAttribute("id","Animo");
+         textClientRight.innerHTML=""+nameClient;
+         contAssistant.appendChild(textClientRight);
+         
+         /*mensaje cinco*/
+         setTimeout(function(){
+          asistenteEscribiendo();
+         },500);
+         
+         setTimeout(function(){
+             $('#assisWrite').fadeOut(200);
+             msjAsistente("varVI");
+         },2500);
+         /*fin mensaje cinco*/
+}}
+function sendNotas(){
+   var inputName=document.getElementById('readText');
+   var nameClient=document.getElementById("readText").value;
+  notas=nameClient
+
+   if(nameClient==""){
+       alert("Debes ingresar tu respuesta si deseas continuar");
+   }else{
+       var btnReadText=document.getElementById('btnReadText');
+       btnReadText.removeAttribute("onclick");
+       inputName.value="";
+       inputName.setAttribute("readonly","readonly");
+
+         var contAssistant=document.getElementById("contAssistant");
+         var hourClientRight=document.createElement("p");
+         var textClientRight=document.createElement("p");
+
+         hourClientRight.setAttribute("class","hourClientRight");
+         hourClientRight.innerHTML=horaActual();
+         contAssistant.appendChild(hourClientRight);
+         textClientRight.setAttribute("class","textClientRight");
+         textClientRight.setAttribute("id","Animo");
+         textClientRight.innerHTML=""+nameClient;
+         contAssistant.appendChild(textClientRight);
+         
+         /*mensaje cinco*/
+         setTimeout(function(){
+          asistenteEscribiendo();
+         },500);
+         
+         setTimeout(function(){
+             $('#assisWrite').fadeOut(200);
+             msjAsistente("varVII");
+         },2500);
+         /*fin mensaje cinco*/
+}
+}
+
+function sendBajas(){
+   var inputName=document.getElementById('readText');
+   var nameClient=document.getElementById("readText").value;
+   bajas=nameClient
+
+
+   if(nameClient==""){
+       alert("Debes ingresar tu respuesta si deseas continuar");
+   }else{
+       var btnReadText=document.getElementById('btnReadText');
+       btnReadText.removeAttribute("onclick");
+       inputName.value="";
+       inputName.setAttribute("readonly","readonly");
+
+         var contAssistant=document.getElementById("contAssistant");
+         var hourClientRight=document.createElement("p");
+         var textClientRight=document.createElement("p");
+
+         hourClientRight.setAttribute("class","hourClientRight");
+         hourClientRight.innerHTML=horaActual();
+         contAssistant.appendChild(hourClientRight);
+         textClientRight.setAttribute("class","textClientRight");
+         textClientRight.setAttribute("id","Animo");
+         textClientRight.innerHTML=""+nameClient;
+         contAssistant.appendChild(textClientRight);
+         
+         /*mensaje cinco*/
+         setTimeout(function(){
+          asistenteEscribiendo();
+         },500);
+         
+         setTimeout(function(){
+             $('#assisWrite').fadeOut(200);
+             msjAsistente("varVIII");
+         },2500);
+         /*fin mensaje cinco*/
+}
+}
+function sendDesempeño(){
+   var inputName=document.getElementById('readText');
+   var nameClient=document.getElementById("readText").value;
+   desempeño=nameClient
+
+   if(nameClient==""){
+       alert("Debes ingresar tu respuesta si deseas continuar");
+   }else{
+       var btnReadText=document.getElementById('btnReadText');
+       btnReadText.removeAttribute("onclick");
+       inputName.value="";
+       inputName.setAttribute("readonly","readonly");
+
+         var contAssistant=document.getElementById("contAssistant");
+         var hourClientRight=document.createElement("p");
+         var textClientRight=document.createElement("p");
+
+         hourClientRight.setAttribute("class","hourClientRight");
+         hourClientRight.innerHTML=horaActual();
+         contAssistant.appendChild(hourClientRight);
+         textClientRight.setAttribute("class","textClientRight");
+         textClientRight.setAttribute("id","Animo");
+         textClientRight.innerHTML=""+nameClient;
+         contAssistant.appendChild(textClientRight);
+         
+         /*mensaje cinco*/
+         setTimeout(function(){
+          asistenteEscribiendo();
+         },500);
+         
+         setTimeout(function(){
+             $('#assisWrite').fadeOut(200);
+             msjAsistente("varIX");
+         },2500);
+         /*fin mensaje cinco*/
+}
+}
+function sendHablar(){
+   var inputName=document.getElementById('readText');
+   var nameClient=document.getElementById("readText").value;
+   hablar=nameClient
+
+   if(nameClient==""){
+       alert("Debes ingresar tu respuesta si deseas continuar");
+   }else{
+       var btnReadText=document.getElementById('btnReadText');
+       btnReadText.removeAttribute("onclick");
+       inputName.value="";
+       inputName.setAttribute("readonly","readonly");
+
+         var contAssistant=document.getElementById("contAssistant");
+         var hourClientRight=document.createElement("p");
+         var textClientRight=document.createElement("p");
+
+         hourClientRight.setAttribute("class","hourClientRight");
+         hourClientRight.innerHTML=horaActual();
+         contAssistant.appendChild(hourClientRight);
+         textClientRight.setAttribute("class","textClientRight");
+         textClientRight.setAttribute("id","Animo");
+         textClientRight.innerHTML=""+nameClient;
+         contAssistant.appendChild(textClientRight);
+         
+         /*mensaje cinco*/
+         setTimeout(function(){
+          asistenteEscribiendo();
+         },500);
+         
+         setTimeout(function(){
+             $('#assisWrite').fadeOut(200);
+             msjAsistente("varX");
+         },2500);
+         /*fin mensaje cinco*/
+}
+}
+
+function sendalgomas(){
+   var inputName=document.getElementById('readText');
+   var nameClient=document.getElementById("readText").value;
+   algomas=nameClient
+
+   if(nameClient==""){
+       alert("Debes ingresar tu respuesta si deseas continuar");
+   }else{
+       var btnReadText=document.getElementById('btnReadText');
+       btnReadText.removeAttribute("onclick");
+       inputName.value="";
+       inputName.setAttribute("readonly","readonly");
+
+         var contAssistant=document.getElementById("contAssistant");
+         var hourClientRight=document.createElement("p");
+         var textClientRight=document.createElement("p");
+
+         hourClientRight.setAttribute("class","hourClientRight");
+         hourClientRight.innerHTML=horaActual();
+         contAssistant.appendChild(hourClientRight);
+         textClientRight.setAttribute("class","textClientRight");
+         textClientRight.setAttribute("id","Animo");
+         textClientRight.innerHTML=""+nameClient;
+         contAssistant.appendChild(textClientRight);
+         
+         /*mensaje cinco*/
+         setTimeout(function(){
+          asistenteEscribiendo();
+         },500);
+         
+         setTimeout(function(){
+             $('#assisWrite').fadeOut(200);
+             msjAsistente("varXI");
+         },2500);
+         /*fin mensaje cinco*/
+         console.log(documento)
+         console.log(nombre)
+         console.log(animo)
+         console.log(estado)
+         console.log(notas)
+         console.log(bajas)
+         console.log(desempeño)
+         console.log(hablar)
+         console.log(algomas)
+         var promedio=(notas-=bajas)
+         console.log(promedio)
+         if(promedio<=4){
+            var riesgo="Alto"
+         }
+         else if(promedio<=7){
+            var riesgo="Medio"
+         }
+         else{
+            var riesgo="Bajo"
+         }
+         console.log(riesgo)
+}
+}
+
+function mandartodo(){
+   
+}
+
 
 function createLink(data){
         var textoCompleto=data;
@@ -480,13 +511,12 @@ function msjAsistente(data){
             var btnReadText=document.getElementById('btnReadText');
 
             inputName.removeAttribute("readonly");
-            btnReadText.setAttribute("onclick","sendName()");
-      }else{
+            btnReadText.setAttribute("onclick","sendDNI()");
+      }if(data=="varIII"){
          $('#assisWrite').remove();
          var contAssistant=document.getElementById('contAssistant');
          var hourAssis=document.createElement('p');
          var textAssis=document.createElement('p');
-         dataToWrite=replaceName(dataToWrite);
          dataToWrite=createLink(dataToWrite);
          hourAssis.setAttribute("class","hourAssisLeft");
          hourAssis.setAttribute("id","hourAssisLeft"+varNum);
@@ -496,7 +526,188 @@ function msjAsistente(data){
          textAssis.setAttribute("id","textAssisLeft"+varNum);
          textAssis.innerHTML=dataToWrite;
          contAssistant.appendChild(textAssis);
-      }
+
+         var inputName=document.getElementById('readText');
+         var btnReadText=document.getElementById('btnReadText');
+
+         inputName.removeAttribute("readonly");
+         btnReadText.setAttribute("onclick","sendName()");}
+         if(data=="varIV"){
+            $('#assisWrite').remove();
+            var contAssistant=document.getElementById('contAssistant');
+            var hourAssis=document.createElement('p');
+            var textAssis=document.createElement('p');
+            dataToWrite=createLink(dataToWrite);
+            hourAssis.setAttribute("class","hourAssisLeft");
+            hourAssis.setAttribute("id","hourAssisLeft"+varNum);
+            hourAssis.innerHTML=horaActual();
+            contAssistant.appendChild(hourAssis);
+            textAssis.setAttribute("class","textAssisLeft");
+            textAssis.setAttribute("id","textAssisLeft"+varNum);
+            textAssis.innerHTML=dataToWrite;
+            contAssistant.appendChild(textAssis);
+   
+            var inputName=document.getElementById('readText');
+            var btnReadText=document.getElementById('btnReadText');
+   
+            inputName.removeAttribute("readonly");
+            btnReadText.setAttribute("onclick","sendAnimo()");}
+            if(data=="varV"){
+               $('#assisWrite').remove();
+               var contAssistant=document.getElementById('contAssistant');
+               var hourAssis=document.createElement('p');
+               var textAssis=document.createElement('p');
+               dataToWrite=createLink(dataToWrite);
+               hourAssis.setAttribute("class","hourAssisLeft");
+               hourAssis.setAttribute("id","hourAssisLeft"+varNum);
+               hourAssis.innerHTML=horaActual();
+               contAssistant.appendChild(hourAssis);
+               textAssis.setAttribute("class","textAssisLeft");
+               textAssis.setAttribute("id","textAssisLeft"+varNum);
+               textAssis.innerHTML=dataToWrite;
+               contAssistant.appendChild(textAssis);
+      
+               var inputName=document.getElementById('readText');
+               var btnReadText=document.getElementById('btnReadText');
+      
+               inputName.removeAttribute("readonly");
+               btnReadText.setAttribute("onclick","sendPresentismo()");}
+               if(data=="varVI"){
+                  $('#assisWrite').remove();
+                  var contAssistant=document.getElementById('contAssistant');
+                  var hourAssis=document.createElement('p');
+                  var textAssis=document.createElement('p');
+                  dataToWrite=createLink(dataToWrite);
+                  hourAssis.setAttribute("class","hourAssisLeft");
+                  hourAssis.setAttribute("id","hourAssisLeft"+varNum);
+                  hourAssis.innerHTML=horaActual();
+                  contAssistant.appendChild(hourAssis);
+                  textAssis.setAttribute("class","textAssisLeft");
+                  textAssis.setAttribute("id","textAssisLeft"+varNum);
+                  textAssis.innerHTML=dataToWrite;
+                  contAssistant.appendChild(textAssis);
+         
+                  var inputName=document.getElementById('readText');
+                  var btnReadText=document.getElementById('btnReadText');
+         
+                  inputName.removeAttribute("readonly");
+                  btnReadText.setAttribute("onclick","sendNotas()");}
+                  if(data=="varVII"){
+                     $('#assisWrite').remove();
+                     var contAssistant=document.getElementById('contAssistant');
+                     var hourAssis=document.createElement('p');
+                     var textAssis=document.createElement('p');
+                     dataToWrite=createLink(dataToWrite);
+                     hourAssis.setAttribute("class","hourAssisLeft");
+                     hourAssis.setAttribute("id","hourAssisLeft"+varNum);
+                     hourAssis.innerHTML=horaActual();
+                     contAssistant.appendChild(hourAssis);
+                     textAssis.setAttribute("class","textAssisLeft");
+                     textAssis.setAttribute("id","textAssisLeft"+varNum);
+                     textAssis.innerHTML=dataToWrite;
+                     contAssistant.appendChild(textAssis);
+            
+                     var inputName=document.getElementById('readText');
+                     var btnReadText=document.getElementById('btnReadText');
+            
+                     inputName.removeAttribute("readonly");
+                     btnReadText.setAttribute("onclick","sendBajas()");}
+                     if(data=="varVIII"){
+                        $('#assisWrite').remove();
+                        var contAssistant=document.getElementById('contAssistant');
+                        var hourAssis=document.createElement('p');
+                        var textAssis=document.createElement('p');
+                        dataToWrite=createLink(dataToWrite);
+                        hourAssis.setAttribute("class","hourAssisLeft");
+                        hourAssis.setAttribute("id","hourAssisLeft"+varNum);
+                        hourAssis.innerHTML=horaActual();
+                        contAssistant.appendChild(hourAssis);
+                        textAssis.setAttribute("class","textAssisLeft");
+                        textAssis.setAttribute("id","textAssisLeft"+varNum);
+                        textAssis.innerHTML=dataToWrite;
+                        contAssistant.appendChild(textAssis);
+               
+                        var inputName=document.getElementById('readText');
+                        var btnReadText=document.getElementById('btnReadText');
+               
+                        inputName.removeAttribute("readonly");
+                        btnReadText.setAttribute("onclick","sendDesempeño()");}
+                        if(data=="varIX"){
+                           $('#assisWrite').remove();
+                           var contAssistant=document.getElementById('contAssistant');
+                           var hourAssis=document.createElement('p');
+                           var textAssis=document.createElement('p');
+                           dataToWrite=createLink(dataToWrite);
+                           hourAssis.setAttribute("class","hourAssisLeft");
+                           hourAssis.setAttribute("id","hourAssisLeft"+varNum);
+                           hourAssis.innerHTML=horaActual();
+                           contAssistant.appendChild(hourAssis);
+                           textAssis.setAttribute("class","textAssisLeft");
+                           textAssis.setAttribute("id","textAssisLeft"+varNum);
+                           textAssis.innerHTML=dataToWrite;
+                           contAssistant.appendChild(textAssis);
+                  
+                           var inputName=document.getElementById('readText');
+                           var btnReadText=document.getElementById('btnReadText');
+                  
+                           inputName.removeAttribute("readonly");
+                           btnReadText.setAttribute("onclick","sendHablar()");}
+                           if(data=="varX"){
+                              $('#assisWrite').remove();
+                              var contAssistant=document.getElementById('contAssistant');
+                              var hourAssis=document.createElement('p');
+                              var textAssis=document.createElement('p');
+                              dataToWrite=createLink(dataToWrite);
+                              hourAssis.setAttribute("class","hourAssisLeft");
+                              hourAssis.setAttribute("id","hourAssisLeft"+varNum);
+                              hourAssis.innerHTML=horaActual();
+                              contAssistant.appendChild(hourAssis);
+                              textAssis.setAttribute("class","textAssisLeft");
+                              textAssis.setAttribute("id","textAssisLeft"+varNum);
+                              textAssis.innerHTML=dataToWrite;
+                              contAssistant.appendChild(textAssis);
+                     
+                              var inputName=document.getElementById('readText');
+                              var btnReadText=document.getElementById('btnReadText');
+                     
+                              inputName.removeAttribute("readonly");
+                              btnReadText.setAttribute("onclick","sendalgomas()");}
+                              if(data=="varXI"){
+                                 $('#assisWrite').remove();
+                                 var contAssistant=document.getElementById('contAssistant');
+                                 var hourAssis=document.createElement('p');
+                                 var textAssis=document.createElement('p');
+                                 dataToWrite=createLink(dataToWrite);
+                                 hourAssis.setAttribute("class","hourAssisLeft");
+                                 hourAssis.setAttribute("id","hourAssisLeft"+varNum);
+                                 hourAssis.innerHTML=horaActual();
+                                 contAssistant.appendChild(hourAssis);
+                                 textAssis.setAttribute("class","textAssisLeft");
+                                 textAssis.setAttribute("id","textAssisLeft"+varNum);
+                                 textAssis.innerHTML=dataToWrite;
+                                 contAssistant.appendChild(textAssis);
+                        
+                                 var inputName=document.getElementById('readText');
+                                 var btnReadText=document.getElementById('btnReadText');
+                        
+                                 inputName.removeAttribute("readonly");
+                                 btnReadText.setAttribute("onclick","mandartodo()");}
+                  else{
+               $('#assisWrite').remove();
+               var contAssistant=document.getElementById('contAssistant');
+               var hourAssis=document.createElement('p');
+               var textAssis=document.createElement('p');
+               dataToWrite=replaceName(dataToWrite);
+               dataToWrite=createLink(dataToWrite);
+               hourAssis.setAttribute("class","hourAssisLeft");
+               hourAssis.setAttribute("id","hourAssisLeft"+varNum);
+               hourAssis.innerHTML=horaActual();
+               contAssistant.appendChild(hourAssis);
+               textAssis.setAttribute("class","textAssisLeft");
+               textAssis.setAttribute("id","textAssisLeft"+varNum);
+               textAssis.innerHTML=dataToWrite;
+               contAssistant.appendChild(textAssis);
+            }
 }
 
 function clienteTomaDecision(){
@@ -516,7 +727,7 @@ function clienteTomaDecision(){
 
                   optionI.setAttribute("class", "option");
                   optionI.setAttribute("id", "optionI");
-                  optionI.setAttribute("onclick", "moreInfoYes()");
+                  optionI.setAttribute("onclick", "yes()");
                   optionI.innerHTML="Sí";
                   decision.appendChild(optionI);
                   optionII.setAttribute("class", "option");
@@ -525,43 +736,6 @@ function clienteTomaDecision(){
                   optionII.innerHTML="No";
                   decision.appendChild(optionII);
                   $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-
-}
-
-function clienteTomaTresDecision(){
-      var varIX=document.getElementById("varIX").innerHTML;
-      var varX=document.getElementById("varX").innerHTML;
-      var varXI=document.getElementById("varXI").innerHTML;
-      var hourClientRight=document.createElement('p');
-      var decision=document.createElement('div');
-      
-      hourClientRight.setAttribute("class","hourClientRight");
-      hourClientRight.innerHTML=horaActual();
-      contAssistant.appendChild(hourClientRight);
-      decision.setAttribute("class","decision");
-      decision.setAttribute("id","decisionIII");
-      contAssistant.appendChild(decision);
-
-      var optionI=document.createElement("div");
-      var optionII=document.createElement("div");
-      var optionIII=document.createElement("div");
-
-      optionI.setAttribute("class", "option");
-      optionI.setAttribute("id", "optionIII-I");
-      optionI.setAttribute("onclick", "selectOptI()");
-      optionI.innerHTML=varIX;
-      decision.appendChild(optionI);
-      optionII.setAttribute("class", "option");
-      optionII.setAttribute("id", "optionIII-II");
-      optionII.setAttribute("onclick", "selectOptII()");
-      optionII.innerHTML=varX;
-      decision.appendChild(optionII);
-      optionIII.setAttribute("class", "option");
-      optionIII.setAttribute("id", "optionIII-III");
-      optionIII.setAttribute("onclick", "selectOptIII()");
-      optionIII.innerHTML=varXI;
-      decision.appendChild(optionIII);
-      $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);     
 
 }
 
@@ -610,229 +784,4 @@ function asistenteDiceEsto(data){
          textAssis.innerHTML=data;
          contAssistant.appendChild(textAssis);
     
-}
-
-function optionWhatOrMail(){
-
-      var contAssistant=document.getElementById("contAssistant");
-      var decision=document.createElement('div');
-
-      var hourClientRight=document.createElement('p');
-      var decision=document.createElement('div');
-      
-      hourClientRight.setAttribute("class","hourClientRight");
-      hourClientRight.innerHTML=horaActual();
-      contAssistant.appendChild(hourClientRight);
-      decision.setAttribute("class","decision");
-      decision.setAttribute("id","decisionII");
-      contAssistant.appendChild(decision);
-      var optionI=document.createElement("div");
-      var optionII=document.createElement("div");
-
-      decision.setAttribute("class","decision");
-      decision.setAttribute("id","decisionII");
-      contAssistant.appendChild(decision);
-
-      optionI.setAttribute("class", "option");
-      optionI.setAttribute("id", "optionII-I");
-      optionI.setAttribute("onclick", "whats()");
-      optionI.innerHTML="WhatsApp";
-      decision.appendChild(optionI);
-      optionII.setAttribute("class", "option");
-      optionII.setAttribute("id", "optionII-II");
-      optionII.setAttribute("onclick", "mails()");
-      optionII.innerHTML="E-mail";
-      decision.appendChild(optionII);
-
-      $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-
-}
-
-function selectOptI(){
-   optionSelect=1;
-   setTimeout(function(){
-      asistenteEscribiendo();
-   },500);
-   
-   setTimeout(function(){
-         $("#assisWrite").fadeOut(200);
-         msjAsistente("varXII");
-         $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-
-         var varV=document.getElementById("varV").innerHTML;
-         if(varV=="0"){
-            //muestro solo el msj VI
-                     asistenteEscribiendo();
-                     setTimeout(function(){
-                        $("#assisWrite").fadeOut(200);
-                        msjAsistente("varVI");
-                        $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-                        envioDatos();
-                     },2000)   
-         }else{
-            //muestro el msj 6 y luego el 7
-                     asistenteEscribiendo();
-                     setTimeout(function(){
-                        $("#assisWrite").fadeOut(200);
-                        msjAsistente("varV");
-                        $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-                        asistenteEscribiendo();
-                     },2000)
-                     
-                     setTimeout(function(){
-                        $("#assisWrite").fadeOut(200);
-                        msjAsistente("varVI");
-                        $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-                        envioDatos();
-                     },4000)
-         }
-   },2500);
-    
-}
-
-function selectOptII(){
-   optionSelect=2;
-   setTimeout(function(){
-      asistenteEscribiendo();
-   },500);
-   
-   setTimeout(function(){
-         $("#assisWrite").fadeOut(200);
-         msjAsistente("varXIII");
-         $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-
-         var varV=document.getElementById("varV").innerHTML;
-         if(varV=="0"){
-            //muestro solo el msj VI
-                     asistenteEscribiendo();
-                     setTimeout(function(){
-                        $("#assisWrite").fadeOut(200);
-                        msjAsistente("varVI");
-                        $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-                        envioDatos();
-                     },2000)   
-         }else{
-            //muestro el msj 6 y luego el 7
-                     asistenteEscribiendo();
-                     setTimeout(function(){
-                        $("#assisWrite").fadeOut(200);
-                        msjAsistente("varV");
-                        $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-                        asistenteEscribiendo();
-                     },2000)
-                     
-                     setTimeout(function(){
-                        $("#assisWrite").fadeOut(200);
-                        msjAsistente("varVI");
-                        $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-                        envioDatos();
-                     },4000)
-         }
-   },2500);
-    
-}
-
-function selectOptIII(){
-   optionSelect=3;
-   setTimeout(function(){
-      asistenteEscribiendo();
-   },500);
-   
-   setTimeout(function(){
-         $("#assisWrite").fadeOut(200);
-         msjAsistente("varXIV");
-         $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-
-         var varV=document.getElementById("varV").innerHTML;
-         if(varV=="0"){
-            //muestro solo el msj VI
-                     asistenteEscribiendo();
-                     setTimeout(function(){
-                        $("#assisWrite").fadeOut(200);
-                        msjAsistente("varVI");
-                        $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-                        asistenteDesconectado();
-                        $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-                        envioDatos();
-                     },2000)   
-         }else{
-            //muestro el msj 6 y luego el 7
-                     asistenteEscribiendo();
-                     setTimeout(function(){
-                        $("#assisWrite").fadeOut(200);
-                        msjAsistente("varV");
-                        $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-                        asistenteEscribiendo();
-                     },2000)
-                     
-                     setTimeout(function(){
-                        $("#assisWrite").fadeOut(200);
-                        msjAsistente("varVI");
-                        $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-                        asistenteDesconectado();
-                        $("#contAssistant").animate({ scrollTop: $('#contAssistant')[0].scrollHeight}, 1000);
-                        envioDatos();
-                     },4000)
-         }
-   },2500);
-    
-}
-
-function envioDatos(){
-
-   
-   var destino=document.getElementById("varMail").innerHTML;
-   var nombre=document.getElementById("nombreCliente").innerHTML;
-   var datos=document.getElementById("datosCliente").innerHTML;
-   var varPregunta=document.getElementById("varVII").innerHTML;
-   var rsptDeCliente=document.getElementById("rsptDeCliente").innerHTML;
-   var varPreguntaOpciones=document.getElementById("varVIII").innerHTML;
-   var varOpcionI=document.getElementById("varIX").innerHTML;
-   var varOpcionII=document.getElementById("varX").innerHTML;
-   var varOpcionIII=document.getElementById("varXI").innerHTML;
-   
-   
-   if(optionSelect==1){
-     optionSelect=varOpcionI;
-   }if(optionSelect==2){
-     optionSelect=varOpcionII;
-   }if(optionSelect==3){
-     optionSelect=varOpcionIII;
-   }
-
-   var param = {
-                   destino: destino,
-                   nombre: nombre,
-                   datos: datos,
-                   preguntaInteres: varPregunta,
-                   rsptaInteres: rsptDeCliente,
-                   preguntaOpciones: varPreguntaOpciones,
-                   opcionSelect: optionSelect
-               }
-                 
-               $.ajax({
-                   data: param,
-                   url: "envioMail/contacto.php",
-                   method: "post",
-                   success: function(data) {
-                   }
-               })
-
-               $.ajax({
-                    url:"basicConfig.php",
-                    success: function(data) {
-                    }
-                    
-               })
-
-               $.ajax({
-                   data: param,
-                   url: "envioMail/enviar.php",
-                   method: "post",
-                   success: function(data) {
-                        
-                   }
-               })
-   
-
 }

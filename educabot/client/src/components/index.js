@@ -1,0 +1,5 @@
+export { default as Bot } from './layout/bot/Bot'
+export { default as Sidebar } from './layout/sidebar/Sidebar'
+export { default as Login } from './views/login/Login'
+export { default as User } from './views/user/User'
+export { default as Home } from './views/home/Home'

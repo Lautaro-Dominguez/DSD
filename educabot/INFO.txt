@@ -1,0 +1,12 @@
+Para ejecutar el "backend":
+En la consola de windows o cualquier otra terminal, estando en la carpeta server:
+    - npm install
+    - node (o nodemon) index.js
+
+Para ejecutar el "frontend":
+En la consola de windows o cualquier otra terminal, estando en la carpeta client:
+    - npm install
+    - npm start
+
+
+La base de datos se encuentra en la carpeta server, lo único que hay que hacer es importarla en localhost/phpmyadmin (recordar tener el MySQL corriendo en el Xampp).
